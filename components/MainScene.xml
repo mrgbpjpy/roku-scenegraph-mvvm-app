@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MainScene.xml
+  Root Scene for the app.
+  Its only job now is to host the HomeScreen.
+-->
+<component name="MainScene" extends="Scene">
+
+  <children>
+    <!-- Home screen with RowList and data -->
+    <HomeScreen id="homeScreen" />
+  </children>
+
+  <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+</component>
