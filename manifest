@@ -1,21 +1,11 @@
-# Channel Details
-title=MyChannel
+title=ESPNAdvancedPrototype
 major_version=1
 minor_version=0
-build_version=1
-mm_icon_focus_hd=pkg:/images/icon_focus_hd.png
+build_version=00001
 
-# Channel Assets
-# Icons
-mm_icon_focus_hd=pkg:/images/icon_focus_hd.png
-mm_icon_side_hd=pkg:/images/icon_side_hd.png
-mm_icon_posterd_hd=pkg:/images/icon_poster_hd.png
-
-# Splash Screen
-splash_screen_hd=pkg:/images/splash_hd.png
-# Resolution Mode
 ui_resolutions=hd
 
-# Required Fields
-bs_profiler_disable=1
-supports_input_launch=1
+mm_icon_focus_hd=pkg:/images/home.png
+mm_icon_side_hd=pkg:/images/home.png
+
+splash_screen_fhd=pkg:/images/bg.jpg
