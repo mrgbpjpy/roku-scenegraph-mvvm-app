@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  MainScene.xml
-  Root Scene for the app.
-  Its only job now is to host the HomeScreen.
--->
 <component name="MainScene" extends="Scene">
-
   <children>
-    <!-- Home screen with RowList and data -->
-    <HomeScreen id="homeScreen" />
+    <!-- Background -->
+    <Poster
+      id="bg"
+      uri="pkg:/images/bg.jpg"
+      width="1280"
+      height="720" />
+
+    <!-- Top NavBar -->
+    <NavBar id="navBar" translation="[0, 0]" />
+
+    <!-- Content area below navbar -->
+    <HomeScreen id="homeScreen" translation="[0, 80]" />
+    <!-- Later you can add: <SearchScreen id="searchScreen" visible="false" /> -->
+
   </children>
 
-  <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+  <script type="text/brightscript"><![CDATA[
+    sub init()
+      m.top.backgroundURI = ""
+
+      m.navBar     = m.top.findNode("navBar")
+      m.homeScreen = m.top.findNode("homeScreen")
+
+      m.navBar.observeField("selectedId", "onNavChanged")
+
+      ' Start on Home
+      m.navBar.setFocus(true)
+    end sub
+
+    sub onNavChanged()
+      id = m.navBar.selectedId
+
+      if id = "home" then
+        m.homeScreen.visible = true
+        ' when you add SearchScreen, you’ll set it false here
+      else if id = "search" then
+        ' show a SearchScreen once implemented
+        ' m.searchScreen.visible = true
+        ' m.homeScreen.visible = false
+      end if
+    end sub
+  ]]></script>
 </component>
+
+
+

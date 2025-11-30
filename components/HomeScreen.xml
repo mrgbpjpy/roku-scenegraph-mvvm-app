@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="HomeScreen" extends="Group">
+  <script type="text/brightscript" uri="HomeScreen.brs" />
+
+  <children>
+    <!-- HERO BANNER (big ESPN-style image) -->
+       <Poster
+      id="heroImage"
+      uri="pkg:/images/posters/game1.jpg"
+      width="1280"
+      height="400"
+      translation="[0,80]"
+      loadDisplayMode="scaleToFill" />
+
+    <!-- Subtitle under hero -->
+    <Label
+      id="heroTitle"
+      text="NFL: Prime Time Showdown"
+      translation="[60, 415]"
+      font="font:MediumSystemFont"
+      color="0xFFFFFFFF" />
+
+    <!-- RowList for sections (Live & Upcoming, Highlights, etc.) -->
+    <RowList
+      id="rowList"
+      translation="[0,400]"
+      width="1280"
+      height="300"
+      itemSize="[260,146]"
+      itemSpacing="[20,20]"
+      rowLabelOffset="[60, -30]"
+      showRowLabel="true" />
+  </children>
+</component>

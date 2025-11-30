@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="CategoryScreen" extends="Group">
+  <script type="text/brightscript" uri="CategoryScreen.brs" />
+
+  <children>
+    <Label
+      id="label"
+      text="CATEGORY SCREEN"
+      translation="[80, 120]"
+      width="1120"
+      horizAlign="left"
+      vertAlign="top"
+      color="0xFFFFFFFF" />
+  </children>
+</component>

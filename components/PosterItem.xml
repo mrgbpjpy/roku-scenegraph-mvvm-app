@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="PosterItem" extends="Group">
+  <interface>
+    <field id="itemContent" type="node" onChange="onItemContentChanged" />
+  </interface>
+
+  <children>
+    <Poster
+      id="poster"
+      width="260"
+      height="146"
+      loadDisplayMode="scaleToFill" />
+
+    <Label
+      id="label"
+      translation="[0, 150]"
+      width="260"
+      horizAlign="center"
+      vertAlign="top"
+      color="0xFFFFFFFF"
+      font="Small" />
+  </children>
+
+  <script type="text/brightscript"><![CDATA[
+    sub init()
+      m.poster = m.top.findNode("poster")
+      m.label  = m.top.findNode("label")
+    end sub
+
+    sub onItemContentChanged()
+      item = m.top.itemContent
+      if item = invalid then return
+
+      m.poster.uri = item.hdPosterUrl
+      m.label.text = item.title
+    end sub
+  ]]></script>
+</component>

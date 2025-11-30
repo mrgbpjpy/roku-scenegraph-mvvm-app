@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="DetailsScreen" extends="Group">
+  <script type="text/brightscript" uri="DetailsScreen.brs" />
+
+  <children>
+    <Label
+      id="label"
+      text="DETAILS SCREEN"
+      translation="[80, 120]"
+      width="1120"
+      horizAlign="left"
+      vertAlign="top"
+      color="0xFFFFFFFF" />
+  </children>
+</component>
