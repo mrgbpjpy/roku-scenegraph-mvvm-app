@@ -1,54 +1,19 @@
 {
+  "heroImage": "pkg:/images/posters/game1.jpg",
   "rows": [
-    {
-      "title": "Live Now",
-      "items": [
-        {
-          "title": "Live Football Match",
-          "description": "Top-of-the-table clash streaming live.",
-          "hdPosterUrl": "https://via.placeholder.com/260x146.png?text=Live+Game",
-          "streamUrl": "https://example.com/live1.m3u8"
-        },
-        {
-          "title": "Live Basketball",
-          "description": "Conference showdown in progress.",
-          "hdPosterUrl": "https://via.placeholder.com/260x146.png?text=Live+Hoops",
-          "streamUrl": "https://example.com/live2.m3u8"
-        }
-      ]
-    },
     {
       "title": "Top Games",
       "items": [
-        {
-          "title": "Classic Championship",
-          "description": "Relive a legendary final.",
-          "hdPosterUrl": "https://via.placeholder.com/260x146.png?text=Classic",
-          "streamUrl": "https://example.com/vod1.m3u8"
-        },
-        {
-          "title": "Last Night Highlights",
-          "description": "Best plays from last night.",
-          "hdPosterUrl": "https://via.placeholder.com/260x146.png?text=Highlights",
-          "streamUrl": "https://example.com/vod2.m3u8"
-        }
+        { "title": "Red Zone ESPN", "thumbnail": "pkg:/images/posters/game1.jpg" },
+        { "title": "Sunday Recap NBA", "thumbnail": "pkg:/images/posters/game2.jpg" },
+        { "title": "Monday Breakdown MLB", "thumbnail": "pkg:/images/posters/game3.jpg" }
       ]
     },
     {
-      "title": "Originals",
+      "title": "Featured ESPN Shows",
       "items": [
-        {
-          "title": "Behind the Scenes",
-          "description": "Exclusive look inside the locker room.",
-          "hdPosterUrl": "https://via.placeholder.com/260x146.png?text=Original",
-          "streamUrl": "https://example.com/vod3.m3u8"
-        },
-        {
-          "title": "Documentary Special",
-          "description": "Deep dive into a legendary team.",
-          "hdPosterUrl": "https://via.placeholder.com/260x146.png?text=Doc",
-          "streamUrl": "https://example.com/vod4.m3u8"
-        }
+        { "title": "SportsCenter NBA ESPN", "thumbnail": "pkg:/images/posters/show1.jpg" },
+        { "title": "ESPN NFL Primetime", "thumbnail": "pkg:/images/posters/show2.jpg" }
       ]
     }
   ]
