@@ -8,6 +8,8 @@ This project demonstrates Roku engineering patterns including component-based
 architecture, focus delegation, custom highlight systems, ContentNode usage,  
 and performance-safe SceneGraph rendering.
 
+I have DemoMaster.zip in this Repo at root level. You may upload it Roku TV Simulator at https://lvcabral.com/brs/
+
 ---
 
 ## 🚀 Features Implemented
