@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="NavBar" extends="Group">
+  <interface>
+    <field id="selectedIndex" type="integer" value="0" alwaysNotify="true" />
+    <field id="selectedId"    type="string"  value="home" alwaysNotify="true" />
+  </interface>
+
+  <!-- Attach the BrightScript logic for this component -->
+  <script type="text/brightscript" uri="pkg:/components/NavBar.brs" />
+
+  <children>
+    <!-- Background bar -->
+    <Rectangle
+      id="barBg"
+      width="1280"
+      height="80"
+      color="0x081018FF" />
+
+    <!-- Icons (left to right) -->
+    <Poster
+      id="homeIcon"
+      uri="pkg:/images/home.png"
+      width="40" height="40"
+      translation="[40,20]" />
+
+    <Poster
+      id="searchIcon"
+      uri="pkg:/images/search.png"
+      width="40" height="40"
+      translation="[120,20]" />
+
+    <Poster
+      id="liveIcon"
+      uri="pkg:/images/live.png"
+      width="40" height="40"
+      translation="[200,20]" />
+
+    <Poster
+      id="sportsIcon"
+      uri="pkg:/images/sports.png"
+      width="40" height="40"
+      translation="[280,20]" />
+
+    <Poster
+      id="replaysIcon"
+      uri="pkg:/images/replay.png"
+      width="40" height="40"
+      translation="[360,20]" />
+
+    <Poster
+      id="profileIcon"
+      uri="pkg:/images/profile.png"
+      width="40" height="40"
+      translation="[440,20]" />
+
+    <Poster
+      id="settingsIcon"
+      uri="pkg:/images/settings.png"
+      width="40" height="40"
+      translation="[520,20]" />
+  </children>
+</component>

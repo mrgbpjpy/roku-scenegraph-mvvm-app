@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="SettingsScreen" extends="Group">
+
+  <!-- Let AppScene call giveFocus() on this screen -->
+  <interface>
+    <function name="giveFocus" />
+  </interface>
+
+  <!-- Attach logic file with full pkg path -->
+  <script type="text/brightscript" uri="pkg:/components/SettingsScreen.brs" />
+
+  <children>
+    <Label
+      id="title"
+      text="SETTINGS"
+      translation="[80, 100]"
+      font="font:MediumSystemFont"
+      color="0xFFFFFFFF" />
+
+    <Label
+      id="subtitle"
+      text="App settings, theme, and about information."
+      translation="[80, 140]"
+      font="font:SmallSystemFont"
+      color="0xAAAAAAFF" />
+  </children>
+</component>

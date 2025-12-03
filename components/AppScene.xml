@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="AppScene" extends="Scene">
+
+  <!-- 🔹 Add this interface block -->
+  <interface>
+    <function name="enterCurrentScreen" />
+    <function name="focusNavBar" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/AppScene.brs" />
+
+  <children>
+    <!-- Background -->
+    <Poster
+      id="bg"
+      uri="pkg:/images/bg.jpg"
+      width="1280"
+      height="720" />
+
+    <!-- Top NavBar -->
+    <NavBar id="navBar" />
+
+    <!-- Screens -->
+    <HomeScreen    id="homeScreen"    translation="[0,80]" visible="false" />
+    <SearchScreen  id="searchScreen"  translation="[0,80]" visible="false" />
+    <LiveScreen    id="liveScreen"    translation="[0,80]" visible="false" />
+    <SportsScreen  id="sportsScreen"  translation="[0,80]" visible="false" />
+    <ReplaysScreen id="replaysScreen" translation="[0,80]" visible="false" />
+    <ProfileScreen id="profileScreen" translation="[0,80]" visible="false" />
+    <SettingsScreen id="settingsScreen" translation="[0,80]" visible="false" />
+  </children>
+</component>
