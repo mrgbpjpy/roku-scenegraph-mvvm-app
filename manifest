@@ -9,3 +9,4 @@ mm_icon_focus_hd=pkg:/images/home.png
 mm_icon_side_hd=pkg:/images/home.png
 
 splash_screen_fhd=pkg:/images/bg.jpg
+main=source/main.brs
