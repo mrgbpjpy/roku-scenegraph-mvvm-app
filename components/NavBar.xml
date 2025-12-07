@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="NavBar" extends="Group" initialFocus="menuGroup" focusable="true">
+    <interface>
+        <!-- Which tab is selected: "home", "live", "sports", "settings" -->
+        <field id="selectedId" type="string" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/NavBar.brs" />
+
+    <children>
+        <!-- Background bar -->
+        <Rectangle
+            id="barBg"
+            width="1280"
+            height="60"
+            color="0x111111FF"
+            translation="[0,0]" />
+
+        <!-- Horizontal menu group -->
+        <LayoutGroup
+            id="menuGroup"
+            layoutDirection="horiz"
+            horizAlignment="left"
+            itemSpacings="[40]"
+            translation="[80, 15]"
+            focusable="true">
+
+            <Label id="tabHome"    text="HOME"    font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="tabLive"    text="LIVE"    font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="tabSports"  text="SPORTS"  font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="tabSettings" text="SETTINGS" font="font:MediumSystemFont" color="0xAAAAAAFF" />
+
+        </LayoutGroup>
+
+        <!-- Focus underline -->
+        <Rectangle
+            id="focusUnderline"
+            width="85"
+            height="4"
+            color="0xE6C200FF"
+            translation="[75, 50]" />
+            <Label
+                id="measureLabel"
+                text="TEST"
+                font="font:MediumSystemFont"
+                visible="false" />
+
+    </children>
+    <focus>
+    <focusGroup>
+        <focusItem id="menuGroup" />
+        </focusGroup>
+    </focus>
+
+</component>

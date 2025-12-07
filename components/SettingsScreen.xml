@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="SettingsScreen" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/SettingsScreen.brs" />
+    <children>
+        <Rectangle
+            id="bg"
+            width="1280"
+            height="590"
+            color="0x202020FF" />
+        <Label
+            id="title"
+            text="SETTINGS SCREEN"
+            translation="[80, 40]"
+            font="font:LargeSystemFont"
+            color="0xFFFFFFFF" />
+    </children>
+</component>

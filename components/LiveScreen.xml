@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="LiveScreen" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/LiveScreen.brs" />
+    <children>
+        <Rectangle
+            id="bg"
+            width="1280"
+            height="590"
+            color="0x201010FF" />
+        <Label
+            id="title"
+            text="LIVE SCREEN"
+            translation="[80, 40]"
+            font="font:LargeSystemFont"
+            color="0xFFFFFFFF" />
+    </children>
+</component>
