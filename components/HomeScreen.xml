@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="HomeScreen" extends="Group" focusable="false">
     <script type="text/brightscript" uri="pkg:/components/HomeScreen.brs" />
+
     <children>
-        <!-- Background -->
+        <!-- Full-screen background -->
         <Rectangle
             id="bg"
             width="1280"
@@ -40,5 +41,79 @@
             translation="[60, 380]"
             font="font:MediumSystemFont"
             color="0xFFFFFFFF" />
+
+        <!-- Static horizontal row of tiles -->
+        <LayoutGroup
+            id="featuredRow"
+            layoutDirection="horiz"
+            itemSpacings="[20]"
+            translation="[60, 420]"
+            focusable="false">
+
+            <!-- Tile 1 -->
+             <Group>
+        <Poster
+            id="tile1Poster"
+            width="220"
+            height="120"
+            uri="pkg:/images/dal_phi.png"
+            loadDisplayMode="scaleToFill" />
+        <Label
+            id="tile1Label"
+            text="DAL @ PHI"
+            translation="[0, 130]"
+            font="font:SmallSystemFont"
+            color="0xFFFFFFFF" />
+    </Group>
+
+            <!-- Tile 2 -->
+            <Group>
+                <Poster
+                    id="tile2Poster"
+                    width="220"
+                    height="120"
+                    uri="pkg:/images/KC_BUF.png"
+                    loadDisplayMode="scaleToFill" />
+                <Label
+                    id="tile2Label"
+                    text="KC @ BUF"
+                    translation="[0, 130]"
+                    font="font:SmallSystemFont"
+                    color="0xFFFFFFFF" />
+            </Group>
+
+            <!-- Tile 3 -->
+            <Group>
+                <Poster
+                    id="tile2Poster"
+                    width="220"
+                    height="120"
+                    uri="pkg:/images/sf_sea.png"
+                    loadDisplayMode="scaleToFill" />
+                <Label
+                    id="tile3Label"
+                    text="SF @ SEA"
+                    translation="[0, 130]"
+                    font="font:SmallSystemFont"
+                    color="0xFFFFFFFF" />
+            </Group>
+
+            <!-- Tile 4 -->
+            <Group>
+               <Poster
+                    id="tile2Poster"
+                    width="220"
+                    height="120"
+                    uri="pkg:/images/NYG_NE.PNG"
+                    loadDisplayMode="scaleToFill" />
+                <Label
+                    id="tile4Label"
+                    text="NYG @ NE"
+                    translation="[0, 130]"
+                    font="font:SmallSystemFont"
+                    color="0xFFFFFFFF" />
+            </Group>
+
+        </LayoutGroup>
     </children>
 </component>
