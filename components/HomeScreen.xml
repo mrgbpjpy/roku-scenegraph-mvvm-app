@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component name="HomeScreen" extends="Group">
+<component name="HomeScreen" extends="Group" focusable="false">
     <script type="text/brightscript" uri="pkg:/components/HomeScreen.brs" />
     <children>
+        <!-- Background -->
         <Rectangle
             id="bg"
             width="1280"
-            height="590"
-            color="0x101020FF" />
+            height="720"
+            color="0x000000FF" />
+
+        <!-- Hero banner area -->
+        <Rectangle
+            id="heroBanner"
+            width="1200"
+            height="260"
+            translation="[40, 80]"
+            color="0x202020FF" />
+
+        <!-- Hero title -->
         <Label
-            id="title"
-            text="HOME SCREEN"
-            translation="[80, 40]"
-            font="font:LargeSystemFont"
+            id="heroTitle"
+            text="NFL: Prime Time Matchup"
+            translation="[60, 100]"
+            font="font:MediumSystemFont"
+            color="0xFFFFFFFF" />
+
+        <!-- Hero subtitle -->
+        <Label
+            id="heroSubtitle"
+            text="Cowboys @ Eagles • Live Tonight 8:00 PM ET"
+            translation="[60, 140]"
+            font="font:SmallSystemFont"
+            color="0xCCCCCCFF" />
+
+        <!-- Section header -->
+        <Label
+            id="sectionHeader"
+            text="Featured Matchups"
+            translation="[60, 380]"
+            font="font:MediumSystemFont"
             color="0xFFFFFFFF" />
     </children>
 </component>
