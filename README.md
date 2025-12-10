@@ -168,13 +168,14 @@ components/
     SettingsScreen.xml / .brs
     DetailScreen.xml / .brs
     IntroVideoScreen.xml / .brs
+    MainScene.xml
+    MainScene.brs
     UILogic/
         ScreenStackLogic.brs
 
 source/
     main.brs
-    MainScene.xml
-    MainScene.brs
+   
 
 videos/
 images/
