@@ -1,11 +1,10 @@
 sub main()
     screen = CreateObject("roSGScreen")
     port   = CreateObject("roMessagePort")
-
     screen.SetMessagePort(port)
 
-    scene = screen.CreateScene("MainScene")
-    scene.id = "mainScene"   ' <-- REQUIRED
+    ' Always load MAIN SCENE — it controls the intro video
+    mainScene = screen.CreateScene("MainScene")
     screen.Show()
 
     while true
