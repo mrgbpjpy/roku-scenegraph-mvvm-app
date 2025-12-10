@@ -251,13 +251,6 @@ This ensures:
 
 ---
 
-## ✔ Why This Matters for Reviewers
-
-If a reviewer or hiring manager sideloads your Roku app and the videos **do not play** on their specific Roku TV, this is almost always due to **model-specific codec support differences**, not the SceneGraph project itself.
-
-The UI, navigation logic, screen architecture, and component interactions work identically across Roku OS versions.
-
----
 
 # 🛣 Roadmap (Planned Enhancements)
 
