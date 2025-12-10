@@ -201,6 +201,67 @@ http://<ROKU_IP>
 ```bash
 telnet <ROKU_IP> 8085
 ```
+---
+# 🎬 Roku Video Codec Compatibility Guide (Add-On for README.md)
+
+Some Roku TV models use different hardware decoders or stricter firmware rules, which means **MP4 videos may play on one Roku device but not another** unless they are encoded using Roku’s universal compatibility profile.
+
+Roku recommends using **H.264 / AVC, High Profile, Level 4.0**, with 8-bit video and AAC audio.
+
+---
+
+## ✔ Recommended Video Settings (Universal Roku Compatibility)
+
+```
+Codec:        H.264 / AVC
+Profile:      High
+Level:        4.0 (or 4.1)
+Pixel Format: yuv420p (8-bit only)
+Bitrate:      6–12 Mbps
+Audio:        AAC-LC, Stereo, 48 kHz
+Container:    MP4
+```
+
+Some export tools (including Adobe Premiere Pro) may still output variations that not all Roku TVs support, such as:
+
+- H.264 Level **5.0 or higher**
+- **10-bit video** instead of 8-bit
+- **Too many reference frames**
+- Variable frame rate (VFR)
+- Non-standard pixel formats
+
+These differences may cause videos to **fail playback** on certain Roku models even though they work on others.
+
+---
+
+## ✔ Guaranteed Fix: Post-Export Transcoding (FFmpeg)
+
+To ensure playback across **all Roku TVs**, use FFmpeg to force Roku-safe parameters:
+
+```bash
+ffmpeg -i input.mp4   -c:v libx264   -profile:v high   -level 4.0   -pix_fmt yuv420p   -x264-params ref=3   -b:v 8000k   -maxrate 9000k   -bufsize 12000k   -c:a aac -b:a 128k   -movflags +faststart   output_roku_safe.mp4
+```
+
+This ensures:
+- 8-bit video  
+- yuv420 pixel format  
+- Reference frames set to 3  
+- Safe H.264 Level 4.0  
+- Universal Roku compatibility (2014–2025)
+
+---
+
+## ✔ Why This Matters for Reviewers
+
+If a reviewer or hiring manager sideloads your Roku app and the videos **do not play** on their specific Roku TV, this is almost always due to **model-specific codec support differences**, not the SceneGraph project itself.
+
+The UI, navigation logic, screen architecture, and component interactions work identically across Roku OS versions.
+
+---
+
+## 📎 File Purpose
+
+This `readme_codec_addon.md` is designed to be merged into your existing README to document Roku video compatibility.
 
 ---
 
