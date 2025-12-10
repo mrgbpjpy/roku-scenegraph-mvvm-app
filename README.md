@@ -259,12 +259,6 @@ The UI, navigation logic, screen architecture, and component interactions work i
 
 ---
 
-## 📎 File Purpose
-
-This `readme_codec_addon.md` is designed to be merged into your existing README to document Roku video compatibility.
-
----
-
 # 🛣 Roadmap (Planned Enhancements)
 
 ### 🎥 **Full Video Player Screen**
