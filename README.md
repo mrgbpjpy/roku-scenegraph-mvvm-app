@@ -1,34 +1,38 @@
 # 📺 Roku ESPN-Style Prototype (Advanced Version)
 
-A fully engineered Roku SceneGraph application replicating an **ESPN-style streaming UI**, featuring:
+A fully engineered Roku SceneGraph application that recreates an **ESPN-style streaming experience**, including:
 
-- A custom top navigation bar with smooth logical focus  
-- Multi-screen architecture (Home, Live, Sports, Settings)  
-- A fully functional modal **DetailScreen**  
-- A centralized screen-management framework  
-- Remote-safe navigation patterns following Roku UX conventions  
+- Custom ESPN-like top navigation bar  
+- Multi-screen architecture (Feature, Home, Live, Sports, Settings)  
+- Auto-playing intro splash screen with fade-out  
+- Auto-playing FeatureScreen promo (plays once, then returns to Home)  
+- Full modal **DetailScreen** system  
+- Clean SceneGraph communication patterns  
+- Roku-safe focus, navigation, and screen-stack control  
 
-This project demonstrates **production-grade Roku engineering**, including:  
-- Component-based architecture  
+This project follows **real production Roku engineering standards**, demonstrating best practices in:
+
+- Component-based UI architecture  
 - Logical focus management  
-- Modal overlays  
-- Event-driven component communication  
-- Performance-safe UI rendering patterns  
+- Modal overlay control  
+- Node → Scene → Modal event communication  
+- Performance-safe rendering techniques  
 
 ---
 
 # 🚀 Current Features (Fully Operational)
 
-## ✅ **1. ESPN‑Style Top Navigation Bar**
+## ✅ **1. ESPN-Style Navigation Bar**
 
-A custom-built NavBar supporting:
+A custom-built NavBar that supports:
 
-- Smooth LEFT/RIGHT navigation  
-- Perfectly centered underline highlight  
-- Controlled by `selectedId` so MainScene can swap screens  
-- Receives initial focus on startup  
+- Smooth left/right navigation  
+- Centered underline highlight  
+- Logical focus management  
+- Emits `selectedId` so MainScene can switch screens  
+- Receives initial focus after the intro splash finishes  
 
-### 🔍 Underline Centering Logic
+### 🔍 Highlight Centering Logic
 
 ```brightscript
 rect = currentTab.boundingRect()
@@ -39,59 +43,96 @@ x = groupPos[0] + rect.x + (rect.width - underlineWidth) / 2
 y = groupPos[1] + rect.y + rect.height + 6
 ```
 
-Works consistently regardless of label width.
+Works on every label regardless of size.
 
 ---
 
 ## ✅ **2. Multi-Screen Architecture**
 
-Each tab corresponds to its own component:
+Tabs load the following screens dynamically:
 
 ```
+FeatureScreen
 HomeScreen
 LiveScreen
 SportsScreen
 SettingsScreen
 ```
 
-Screens are loaded dynamically and isolated for maintainability:
+Each screen is isolated and safe to load/unload:
 
 ```brightscript
 screen = CreateObject("roSGNode", "HomeScreen")
 ShowScreenInLayer(screen, m.screenLayer)
 ```
 
-Only one screen is active at a time.
+Only one active screen is shown at a time.
 
 ---
 
-## ✅ **3. Fully Functional Modal DetailScreen**
+## 🎬 **3. Intro Splash Video (Auto-play + Fade-Out)**
 
-Pressing **OK** on a HomeScreen poster opens a modal overlay.
+- Plays automatically on app launch  
+- Runs at the top UI layer  
+- Fades out smoothly  
+- UI becomes interactive afterward  
+
+### Animation logic (MainScene):
+
+```xml
+<FloatFieldInterpolator
+    fieldToInterp="introLayer.opacity"
+    key="[0.0, 1.0]"
+    keyValue="[1.0, 0.0]"
+/>
+```
+
+Clean fade transition into the app.
+
+---
+
+## 🎥 **4. FeatureScreen Auto-Playing Promo Video**
+
+- Auto-plays promo video when Feature tab is selected  
+- Does **not loop**  
+- When the video finishes, the app automatically:
+
+  ✔ switches NavBar to **Home**  
+  ✔ transfers focus to NavBar  
+
+- WATCH NOW button opens the DetailScreen modal  
+
+True ESPN-style behavior.
+
+---
+
+## 🗂 **5. DetailScreen Modal (Fully Functional)**
+
+Pressing **OK** on any poster or featured item opens a modal overlay.
 
 Features:
 
-- Displays dynamic game metadata  
-- Shows action buttons (PLAY, INFO, etc.)  
-- Follows correct SceneGraph modal architecture  
-- Back button closes it properly  
+- Dynamic title and metadata  
+- Play / info / action buttons  
+- Clean closing behavior  
+- Proper focus restoration  
 
-### Details are passed cleanly:
+### Data flow:
 
-#### From HomeScreen → MainScene
+**Screen → MainScene**
 
 ```brightscript
 scene.callFunc("ShowDetail", data)
 ```
 
-#### MainScene → DetailScreen
+**MainScene → DetailScreen**
 
 ```brightscript
 m.detailScreen.itemData = data
 m.detailLayer.visible = true
 ```
 
-#### From DetailScreen → MainScene
+**DetailScreen → MainScene**
 
 ```brightscript
 scene.callFunc("HideDetail")
@@ -99,21 +140,19 @@ scene.callFunc("HideDetail")
 
 ---
 
-## 🧠 **4. Correct SceneGraph Engineering Patterns**
+# 🧠 SceneGraph Architecture Summary
 
-This project uses the proper Node → Scene → Modal communication flow:
+| Component | Responsibilities |
+|----------|------------------|
+| **IntroVideoScreen** | App intro animation + fade-out |
+| **FeatureScreen** | Auto-play promo + watch button |
+| **NavBar** | Tab navigation + focus underline |
+| **MainScene** | Central router, modal owner, screen loader |
+| **HomeScreen / Live / Sports / Settings** | Independent content screens |
+| **DetailScreen** | Overlay modal |
+| **ScreenStackLogic** | Efficient screen loading/unloading |
 
-| Component | What It Does |
-|----------|---------------|
-| **NavBar** | Emits selectedId for tab switching |
-| **MainScene** | Owns all high-level UI + modal logic |
-| **HomeScreen** | Shows posters and triggers details |
-| **DetailScreen** | Displays metadata and sends play/back events |
-| **ScreenStackLogic** | Safely unloads & loads screens |
-
-No illegal cross-node references.  
-No deprecated function calls.  
-Roku-production architecture.
+This structure mirrors **real Roku production apps** like Disney+, ESPN, NFL, and Hulu.
 
 ---
 
@@ -121,15 +160,14 @@ Roku-production architecture.
 
 ```
 components/
-    NavBar.xml
-    NavBar.brs
-    HomeScreen.xml
-    HomeScreen.brs
-    LiveScreen.xml
-    SportsScreen.xml
-    SettingsScreen.xml
-    DetailScreen.xml
-    DetailScreen.brs
+    NavBar.xml / .brs
+    FeatureScreen.xml / .brs
+    HomeScreen.xml / .brs
+    LiveScreen.xml / .brs
+    SportsScreen.xml / .brs
+    SettingsScreen.xml / .brs
+    DetailScreen.xml / .brs
+    IntroVideoScreen.xml / .brs
     UILogic/
         ScreenStackLogic.brs
 
@@ -138,63 +176,72 @@ source/
     MainScene.xml
     MainScene.brs
 
+videos/
 images/
 manifest
 ```
 
 ---
 
-# 🔧 Installation (Side-Loading)
+# 🔧 Installation (Side-Loading onto Roku)
 
 ### 1️⃣ Zip your project
 ```bash
 zip -r espn-prototype.zip *
 ```
 
-### 2️⃣ Go to Roku Dev Installer
+### 2️⃣ Open the Roku Developer Installer
 ```
 http://<ROKU_IP>
 ```
 
-### 3️⃣ Upload ZIP → Install
+### 3️⃣ Upload ZIP → Install Channel
 
-### 4️⃣ View logs
+### 4️⃣ View Logs (Remote in Terminal)
 ```bash
 telnet <ROKU_IP> 8085
 ```
 
 ---
 
-# 🛣 Roadmap (Next Enhancements)
+# 🛣 Roadmap (Planned Enhancements)
 
-### 🎥 Video Playback Screen
-- HLS player
-- Auto-play from DetailScreen
-- Controls with scrub bar + thumbnails
+### 🎥 **Full Video Player Screen**
+- HLS playback  
+- Scrub bar  
+- Thumbnails  
+- Pause/Play UI  
+- Auto-play from DetailScreen  
 
-### 📡 JSON Content Pipeline
-- Remote sports feed
-- Dynamic matchup generation
-- Category filtering
+### 📡 **Live Content API**
+- Sports feed ingestion  
+- Dynamic category rows  
+- Weekly matchup schedule builder  
 
-### ✨ UI / UX Enhancements
-- RowList carousels
-- Animated modals
-- Spring physics underline animation
-- Global theme system
+### ✨ **Advanced UI / UX**
+- RowList + markupGrid carousels  
+- Hero banners  
+- Animated poster hover states  
+- Spring physics underline animation  
 
-### 💰 Ad System
-- RAF pre-roll integration  
-- Error-handling + tracking  
+### 💰 **Advertising Support**
+- Pre-roll video ads (RAF)  
+- VAST / VMAP loaders  
+- Failover logic + metrics tracking  
 
 ---
 
-# 👤 Author — Erick Esquilin
+# 👤 **Author — Erick Esquilin**
 
-Full-Stack Developer | Roku Engineer | M.S. Computer Science  
+Full-Stack Developer | Roku Engineer | M.S. in Computer Science  
 
-Skilled in: Roku SG, React, .NET, Power Platform, Cloud, FFmpeg, HLS streaming.
+Technologies: Roku SceneGraph, BrightScript, React, .NET, Azure, Power Platform, FFmpeg, HLS Streaming.
 
-This project demonstrates **real-world Roku engineering** for apps like ESPN, Disney+, Hulu, and NFL.
+This project demonstrates skills aligned with **professional Roku engineering roles** at ESPN, Disney+, Hulu, NFL, Warner Bros Discovery, Paramount+, and more.
 
-If you want the next steps—video player, content feed, animation polish, or recruiter-ready refinements—I can help you build the full production version.
+If you want to extend this prototype into a full production-ready Roku app, I can help you implement:
+
+- End-to-end video playback pipeline  
+- Live content feeds  
+- RowLists + dynamic categories  
+- Roku UX polish  
