@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="FeatureScreen" extends="Group" initialFocus="watchButton" focusable="true">
+
+    <script type="text/brightscript" uri="pkg:/components/FeatureScreen.brs" />
+
+    <children>
+
+        <!-- ===============================
+             DARK OVERLAY BEHIND UI
+        ================================ -->
+        <Rectangle
+            id="gradient"
+            width="1280"
+            height="720"
+            color="0x00000080"
+            translation="[0,0]" />
+
+        <!-- ===============================
+             FEATURED CONTENT OVERLAY
+        ================================ -->
+        <Group id="overlayGroup" translation="[80, 180]">
+
+            <Label
+                id="featuredTitle"
+                text="FEATURED HIGHLIGHT"
+                font="font:LargeBoldSystemFont"
+                color="0xFFFFFFFF" />
+
+            <Label
+                id="featuredSubtitle"
+                text="Tonight's Must-Watch NFL Moment"
+                font="font:MediumSystemFont"
+                translation="[0,50]"
+                color="0xCCCCCCFF" />
+
+            <!-- Watch Button -->
+            <Rectangle
+                id="watchButton"
+                width="260"
+                height="60"
+                translation="[0,120]"
+                color="0xE6C200FF"
+                focusable="true">
+
+                <Label
+                    id="watchButtonLabel"
+                    translation="[30,15]"
+                    text="WATCH NOW"
+                    font="font:MediumBoldSystemFont"
+                    color="0x000000FF" />
+            </Rectangle>
+
+        </Group>
+
+        <!-- =====================================================
+             BACKGROUND VIDEO (MOVED TO THE BOTTOM = ON TOP)
+             SceneGraph draws LAST elements ON TOP visually.
+        ====================================================== -->
+        <Video
+            id="bgVideo"
+            width="1280"
+            height="720"
+            translation="[0,0]"
+            content="{}"
+            control="stop" />
+
+    </children>
+
+    <focus>
+        <focusGroup>
+            <focusItem id="watchButton" />
+        </focusGroup>
+    </focus>
+
+</component>
