@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="DetailScreen" extends="Group" focusable="true">
+
+    <interface>
+        <field id="itemData" type="assocarray"/>
+        <function name="PlayFadeOut"/>
+    </interface>
+
+    <children>
+
+        <!-- ===============================
+             DETAIL UI ROOT
+        ================================ -->
+        <Group
+            id="detailRoot"
+            width="1280"
+            height="720"
+            opacity="0.0"
+            scale="[0.94,0.94]">
+
+            <Rectangle width="1280" height="720" color="0x000000CC"/>
+
+            <Poster
+                id="poster"
+                translation="[80,120]"
+                width="400"
+                height="220"
+                loadDisplayMode="scaleToFill"/>
+
+            <Label
+                id="title"
+                translation="[520,120]"
+                font="font:LargeSystemFont"
+                color="0xFFFFFFFF"/>
+
+            <Label
+                id="category"
+                translation="[520,170]"
+                font="font:SmallSystemFont"
+                color="0xCCCCCCFF"/>
+
+            <Label
+                id="duration"
+                translation="[520,210]"
+                font="font:SmallSystemFont"
+                color="0xCCCCCCFF"/>
+
+            <Label
+                id="description"
+                translation="[520,260]"
+                width="600"
+                wrap="true"
+                font="font:SmallSystemFont"
+                color="0xDDDDDDFF"/>
+
+            <LayoutGroup
+                id="actionRow"
+                translation="[520,360]"
+                layoutDirection="horiz"
+                itemSpacings="[40]">
+
+            <Label id="btnPlay" text="PLAY"/>
+            <Label id="btnMore" text="MORE INFO"/>
+            <Label id="btnClose" text="CLOSE"/>
+            </LayoutGroup>
+
+
+            <Rectangle
+                id="actionCursor"
+                width="140"
+                height="6"
+                translation="[520,400]"
+                color="0xE6C200FF"/>
+        </Group>
+
+        <!-- ===============================
+             VIDEO PLAYER (TOPMOST)
+        ================================ -->
+        <Video
+            id="detailVideo"
+            width="1280"
+            height="720"
+            visible="false"
+            enableUI="false"
+            loop="false"/>
+
+        <!-- ===============================
+             FADE IN
+        ================================ -->
+        <Animation id="fadeInAnim" duration="300">
+            <FloatFieldInterpolator
+                fieldToInterp="detailRoot.opacity"
+                key="[0,1]"
+                keyValue="[0,1]"/>
+        </Animation>
+
+        <!-- ===============================
+             FADE OUT
+        ================================ -->
+        <Animation id="fadeOutAnim" duration="250">
+            <FloatFieldInterpolator
+                fieldToInterp="detailRoot.opacity"
+                key="[0,1]"
+                keyValue="[1,0]"/>
+        </Animation>
+
+    </children>
+
+    <script type="text/brightscript" uri="pkg:/components/DetailScreen.brs"/>
+
+</component>
