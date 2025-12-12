@@ -53,25 +53,25 @@ sub init()
     m.content = [
         {
             title: "DAL @ PHI",
-            videoUrl: "https://videos.erickrokudev.org/ESPN_Splash.mp4",
+            videoUrl: "https://videos.erickrokudev.org/DAL_PHI.mp4",
             category: "NFL",
             description: "Cowboys vs Eagles prime-time matchup"
         },
         {
             title: "KC @ BUF",
-            videoUrl: "https://videos.erickrokudev.org/New_Football_Promo.mp4",
+            videoUrl: "https://videos.erickrokudev.org/KC_BUF.mp4",
             category: "NFL",
             description: "Chiefs vs Bills showdown"
         },
         {
             title: "SF @ SEA",
-            videoUrl: "https://videos.erickrokudev.org/ESPN_Splash.mp4",
+            videoUrl: "https://videos.erickrokudev.org/SF_SEA.mp4",
             category: "NFL",
             description: "49ers vs Seahawks rivalry"
         },
         {
             title: "NYG @ NE",
-            videoUrl: "https://videos.erickrokudev.org/New_Football_Promo.mp4",
+            videoUrl: "https://videos.erickrokudev.org/NYG_NE.mp4",
             category: "NFL",
             description: "Giants vs Patriots clash"
         }
