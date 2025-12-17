@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="AppScene" extends="Scene">
+  <children>
+    <!-- Top Nav -->
+    <NavBar
+      id="navBar"
+      translation="[60, 40]"
+      focusable="true" />
+
+    <!-- Live list area -->
+    <LiveScreen
+      id="liveScreen"
+      translation="[80, 140]"
+      focusable="true" />
+
+    <!-- Debug label under the list -->
+    <Label
+      id="debugLabel"
+      text="Debug: waiting for key..."
+      translation="[80, 500]"
+      font="font:SmallSystemFont"
+      color="0xFFFFFFFF" />
+  </children>
+
+  <script type="text/brightscript" uri="AppScene.brs" />
+</component>
