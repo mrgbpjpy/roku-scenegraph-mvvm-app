@@ -91,6 +91,20 @@
 
 </Group>
 
+        <!-- ===============================
+        LIVE VIDEO PLAYER
+        ================================ -->
+        <Video
+            id="liveVideo"
+            width="1280"
+            height="660"
+            translation="[0, 0]"
+            visible="false"
+            enableUI="false"
+            loop="true" />
+
+
+
 
         <!-- ================================
              Underline Cursor
@@ -104,6 +118,7 @@
             opacity="0.0"
             translation="[80, 160]" />
 
+        
     </children>
 
 </component>
