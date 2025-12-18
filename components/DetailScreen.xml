@@ -76,12 +76,13 @@
              VIDEO PLAYER (TOPMOST)
         ================================ -->
         <Video
-            id="detailVideo"
-            width="1280"
-            height="720"
-            visible="false"
-            enableUI="false"
-            loop="false"/>
+                id="detailVideo"
+                width="1280"
+                height="660"
+                translation="[0, 0]"
+                visible="false"
+                enableUI="false"
+                loop="false"/>
 
         <!-- ===============================
              FADE IN
