@@ -1,5 +1,5 @@
 ' ============================================================
-' LiveScreen.brs — Finished Vertical Menu + Preview Panel
+' LiveScreen.brs — Finished Vertical Menu + Preview + Live Video
 ' ESPN-style, MVVM-safe
 ' ============================================================
 
@@ -11,6 +11,7 @@ sub init()
     ' -----------------------------
     m.liveMenu = m.top.findNode("liveMenu")
     m.cursor   = m.top.findNode("cursor")
+    m.video    = m.top.findNode("liveVideo")
 
     m.previewTitle  = m.top.findNode("previewTitle")
     m.previewDesc   = m.top.findNode("previewDesc")
@@ -24,12 +25,12 @@ sub init()
     ]
 
     ' -----------------------------
-    ' Mock content for preview panel
+    ' Preview content (menu-index aligned)
     ' -----------------------------
     m.previewData = [
         {
-            title: "Chiefs vs Bills",
-            desc: "AFC showdown with major playoff implications.",
+            title: "Live Basketball",
+            desc: "Watch live basketball coverage streaming now.",
             poster: "pkg:/images/live/kc_buf.jpg"
         },
         {
@@ -50,6 +51,7 @@ sub init()
     ]
 
     m.currentIndex = 0
+    m.videoPlaying = false
 
     ' Watch focus changes
     m.top.observeField("hasFocus", "onFocusChanged")
@@ -65,7 +67,7 @@ end sub
 sub onFocusChanged()
     if m.cursor = invalid then return
 
-    if m.top.hasFocus()
+    if m.top.hasFocus() and not m.videoPlaying
         m.cursor.opacity = 1.0
         updateMenuVisuals()
         updatePreview()
@@ -81,14 +83,13 @@ end sub
 sub updateMenuVisuals()
     if m.options = invalid or m.cursor = invalid then return
 
-    ' Highlight selected option
     for i = 0 to m.options.count() - 1
         opt = m.options[i]
         if opt <> invalid then
-            if i = m.currentIndex
-                opt.color = "0xFFFFFFFF" ' White
+            if i = m.currentIndex then
+                opt.color = "0xFFFFFFFF"
             else
-                opt.color = "0xFF888888" ' Gray
+                opt.color = "0xFF888888"
             end if
         end if
     end for
@@ -102,11 +103,9 @@ sub updateMenuVisuals()
     menuPos  = m.liveMenu.translation
     labelPos = selected.translation
 
-    ' Size cursor to text width
     m.cursor.width  = rect.width
     m.cursor.height = 4
 
-    ' Position cursor directly under text
     m.cursor.translation = [
         menuPos[0] + labelPos[0],
         menuPos[1] + labelPos[1] + rect.height + 6
@@ -125,18 +124,65 @@ sub updatePreview()
     data = m.previewData[m.currentIndex]
     if data = invalid then return
 
-    if m.previewTitle <> invalid
+    if m.previewTitle <> invalid then
         m.previewTitle.text = data.title
     end if
 
-    if m.previewDesc <> invalid
+    if m.previewDesc <> invalid then
         m.previewDesc.text = data.desc
     end if
 
-    if m.previewPoster <> invalid
+    if m.previewPoster <> invalid then
         m.previewPoster.uri = data.poster
     end if
 end sub
+
+
+' ============================================================
+' Live Video Playback
+' ============================================================
+sub playLiveVideo(videoUrl as String)
+    if m.video = invalid then return
+
+    print "LIVE ▶ Playing video:"; videoUrl
+
+    videoContent = CreateObject("roSGNode", "ContentNode")
+    videoContent.streamFormat = "mp4"
+    videoContent.url = videoUrl
+
+    m.video.content = videoContent
+    m.video.visible = true
+    m.video.control = "play"
+
+    m.videoPlaying = true
+    m.cursor.opacity = 0.0
+end sub
+
+
+
+sub stopLiveVideo()
+    if m.video = invalid then return
+
+    print "LIVE ▶ Stopping live video"
+
+    ' Stop playback
+    m.video.control = "stop"
+
+    ' Clear content to release focus cleanly
+    m.video.content = invalid
+
+    ' Hide video node
+    m.video.visible = false
+    m.videoPlaying = false
+
+    ' Reassert focus back to LiveScreen
+    m.top.setFocus(true)
+
+    ' Restore UI state
+    updateMenuVisuals()
+    updatePreview()
+end sub
+
 
 
 ' ============================================================
@@ -145,7 +191,15 @@ end sub
 function onKeyEvent(key as String, press as Boolean) as Boolean
     if not press then return false
 
-    ' DOWN navigation
+    ' If video is playing, BACK stops it
+    if m.videoPlaying then
+        if key = "back"
+            stopLiveVideo()
+            return true
+        end if
+        return true
+    end if
+
     if key = "down"
         if m.currentIndex < m.options.count() - 1
             m.currentIndex++
@@ -155,14 +209,12 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         return true
     end if
 
-    ' UP navigation
     if key = "up"
         if m.currentIndex > 0
             m.currentIndex--
             updateMenuVisuals()
             updatePreview()
         else
-            ' Return focus to NavBar
             scene = m.top.getScene()
             if scene <> invalid
                 navBar = scene.findNode("navBar")
@@ -172,12 +224,21 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         return true
     end if
 
-    ' OK selection
     if key = "OK"
-        print "LIVE ▶ Selected menu index:"; m.currentIndex
-        ' Future: route to DetailScreen based on selection
-        return true
+    print "LIVE ▶ Selected menu index:"; m.currentIndex
+
+    ' Live Now
+    if m.currentIndex = 0
+        playLiveVideo("https://videos.erickrokudev.org/BasketBall_Live.mp4")
     end if
+
+    ' Replays
+    if m.currentIndex = 2
+        playLiveVideo("https://videos.erickrokudev.org/BBDunksV2.mp4")
+    end if
+
+    return true
+end if
 
     return false
 end function
