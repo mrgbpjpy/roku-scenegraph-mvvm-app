@@ -1,101 +1,111 @@
-# 📺 Roku ESPN-Style Prototype (Advanced Version)
 
-A fully engineered Roku SceneGraph application that recreates an **ESPN-style streaming experience**, including:
+# 📺 Roku ESPN-Style Prototype (Portfolio Edition)
 
-- Custom ESPN-like top navigation bar  
-- Multi-screen architecture (Feature, Home, Live, Sports, Settings)  
-- Auto-playing intro splash screen with fade-out  
-- Auto-playing FeatureScreen promo (plays once, then returns to Home)  
-- Full modal **DetailScreen** system (Play / More Info / Close)  
-- Clean SceneGraph communication patterns  
-- Roku-safe focus, navigation, and screen-stack control  
+A **production-grade Roku SceneGraph application** that recreates an ESPN-style streaming experience while showcasing **real-world Roku engineering practices**, advanced focus management, and modal-safe navigation patterns.
 
-This project follows **real production Roku engineering standards**, demonstrating best practices in:
-
-- Component-based UI architecture  
-- Logical focus management  
-- Modal overlay control  
-- Node → Scene → Modal event communication  
-- Performance-safe rendering techniques  
+This project is intentionally built as a **portfolio-quality system**, not a demo, and is designed to communicate engineering maturity to hiring managers and senior Roku teams.
 
 ---
 
-## 🚀 Current Features (Fully Operational)
+## 🎯 Purpose
 
-### ✅ 1. ESPN-Style Navigation Bar
-- Smooth LEFT / RIGHT navigation  
-- Centered underline highlight (dynamic sizing)  
-- Logical focus management  
-- Emits `selectedId` to MainScene  
-- Receives focus after intro splash finishes  
+This application demonstrates:
 
-**Underline centering logic:**
-```brightscript
-rect = currentTab.boundingRect()
-underlineWidth = m.focusUnderline.width
-groupPos = m.menuGroup.translation
+- Who built the app  
+- How a production Roku application is architected  
+- Why thoughtful system design matters on TV platforms  
+- How complex UI, video, and focus logic are handled cleanly  
 
-x = groupPos[0] + rect.x + (rect.width - underlineWidth) / 2
-y = groupPos[1] + rect.y + rect.height + 6
-```
+If you are reviewing this app, you are reviewing the developer’s work.
 
 ---
 
-### ✅ 2. Multi-Screen Architecture
+## 🚀 Key Capabilities (Fully Operational)
+
+### ✅ ESPN-Style Top Navigation
+- LEFT / RIGHT remote navigation
+- Dynamic, centered underline cursor (text-width accurate)
+- Focus-safe handoff between NavBar and screens
+- Deterministic behavior on reselect and DOWN navigation
+- Scene-level routing via `selectedId`
+
+---
+
+### ✅ Multi-Screen Architecture
 ```
 FeatureScreen
 HomeScreen
 LiveScreen
 SportsScreen
-SettingsScreen
+DeveloperInfoScreen
 ```
-
-Only one screen is visible at a time. Screens are focus-safe and independently managed.
-
----
-
-### 🎬 3. Intro Splash Video
-- Auto-plays on app launch  
-- Fades out smoothly  
-- UI becomes interactive afterward  
+- One visible screen at a time
+- Screens own their own focus and navigation logic
+- Clean separation between routing and presentation
 
 ---
 
-### 🎥 4. FeatureScreen Auto-Playing Promo
-- Plays once (no loop)  
-- Returns to Home automatically  
-- Focus restored to NavBar  
-- WATCH NOW opens DetailScreen  
+### 🎬 Intro Splash Experience
+- Auto-playing intro video
+- Fade-out animation
+- UI becomes interactive only after completion
 
 ---
 
-### 🗂 5. DetailScreen Modal (Production-Grade)
-- Opens from posters or FeatureScreen  
-- Play / More Info / Close buttons  
-- Close button and BACK both dismiss modal  
-- Video BACK returns to Detail UI  
-- Focus always restored to originating screen  
+### 🎥 FeatureScreen Promo Flow
+- Auto-plays once on launch
+- Returns cleanly to HomeScreen
+- Focus restored to NavBar
+- WATCH NOW opens DetailScreen modal
 
-**Data flow:**
+---
+
+### 🗂 DetailScreen Modal (Production-Grade)
+- Opens from posters or FeatureScreen
+- Actions: Play / More Info / Close
+- BACK behavior correctly scoped:
+  - During video → returns to detail UI
+  - Outside video → closes modal
+- Modal never traps focus
+- Scene owns modal lifecycle
+
+**Modal communication pattern:**
 ```brightscript
 scene.callFunc("ShowDetail", data)
-```
-```brightscript
 scene.callFunc("HideDetail_afterFade")
 ```
 
 ---
 
-## 🧠 SceneGraph Architecture Summary
+### 🧑‍💻 Developer Info Screen (Portfolio Highlight)
+A dedicated screen designed for hiring managers.
+
+Includes:
+- Role & Ownership
+- Architecture & Stack
+- Game & Animation Systems
+- Input, Navigation & UX
+- About the Developer
+
+Features:
+- ESPN-style underline cursor
+- Focus-safe UP / BACK return to NavBar
+- Dynamic content panel
+- TV-friendly copy (no scrolling walls of text)
+
+---
+
+## 🧠 Architecture Summary
 
 | Component | Responsibility |
-|---------|---------------|
-| IntroVideoScreen | App intro + fade |
-| FeatureScreen | Promo playback |
-| NavBar | Navigation |
-| MainScene | Router + modal owner |
-| DetailScreen | Modal overlay |
-| ScreenStackLogic | Screen lifecycle |
+|---------|----------------|
+| IntroVideoScreen | App intro and fade control |
+| FeatureScreen | Promotional playback |
+| NavBar | Global navigation |
+| MainScene | Router and modal owner |
+| DetailScreen | Modal overlay system |
+| DeveloperInfoScreen | Developer portfolio screen |
+| ScreenStackLogic | Screen lifecycle control |
 
 ---
 
@@ -107,7 +117,7 @@ components/
   HomeScreen.xml/.brs
   LiveScreen.xml/.brs
   SportsScreen.xml/.brs
-  SettingsScreen.xml/.brs
+  DeveloperInfoScreen.xml/.brs
   DetailScreen.xml/.brs
   IntroVideoScreen.xml/.brs
   MainScene.xml/.brs
@@ -117,10 +127,20 @@ components/
 source/
   main.brs
 
-videos/
 images/
+videos/
 manifest
 ```
+
+---
+
+## 🎮 Engineering Highlights
+- Component-driven SceneGraph architecture
+- Modal-safe focus handling
+- Deterministic remote behavior
+- Cursor-driven navigation inspired by game systems
+- Animation used only when it adds clarity
+- Zero focus traps or dead ends
 
 ---
 
@@ -128,13 +148,13 @@ manifest
 ```bash
 zip -r espn-prototype.zip *
 ```
-Open:
+Navigate to:
 ```
 http://<ROKU_IP>
 ```
 Upload ZIP → Install Channel
 
-Logs:
+Debug logs:
 ```bash
 telnet <ROKU_IP> 8085
 ```
@@ -145,13 +165,13 @@ telnet <ROKU_IP> 8085
 
 **Recommended:**
 ```
-H.264 (High, Level 4.0)
+H.264 (High Profile, Level 4.0)
 yuv420p (8-bit)
 AAC audio
 MP4 container
 ```
 
-**Guaranteed FFmpeg fix:**
+**FFmpeg Roku-safe conversion:**
 ```bash
 ffmpeg -i input.mp4 -c:v libx264 -profile:v high -level 4.0 -pix_fmt yuv420p -x264-params ref=3 -b:v 8000k -maxrate 9000k -bufsize 12000k -c:a aac -b:a 128k -movflags +faststart output_roku_safe.mp4
 ```
@@ -159,17 +179,19 @@ ffmpeg -i input.mp4 -c:v libx264 -profile:v high -level 4.0 -pix_fmt yuv420p -x2
 ---
 
 ## 🛣 Roadmap
-- Full HLS Player UI  
-- Live sports feeds  
-- RowList / MarkupGrid  
-- RAF advertising  
-- Performance tuning  
+- HLS live player
+- RowList / MarkupGrid content rails
+- RAF advertising integration
+- Performance tuning and profiling
+- Build/version metadata overlay
 
 ---
 
 ## 👤 Author — Erick Esquilin
 
-Full-Stack Developer | Roku Engineer  
-M.S. in Computer Science  
+**Software Engineer · Systems-Oriented Developer**  
+M.S. in Computer Science
 
-This project reflects **real-world Roku production architecture** used by ESPN, Disney+, Hulu, NFL, and more.
+Specializing in interactive, production-ready applications across TV, real-time UI systems, and performance-constrained platforms.
+
+This project reflects architecture patterns used by modern streaming platforms including ESPN, Disney+, Hulu, and Prime Video.
