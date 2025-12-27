@@ -1,80 +1,147 @@
 
-# ESPN-Style Roku SceneGraph App (MVVM Architecture)
+# ESPN-Style Roku SceneGraph Application
 
 ## Overview
+This project is a production-style ESPN-inspired Roku TV application built using **Roku SceneGraph** and **BrightScript**.  
+It demonstrates real-world TV navigation patterns, focus management, modal handling, video playback, and deterministic input contracts suitable for large-screen, remote-driven UIs.
 
-This project is a Roku SceneGraph application inspired by ESPN-style navigation and UX patterns.
-It implements a persistent NavBar, multiple content screens (Featured, Home, Live, Sports, Developer),
-background video playback, and deterministic focus management using BrightScript.
+The app was developed incrementally from **early November through late December**, with a strong emphasis on correctness, debuggability, and portfolio readiness for Roku / streaming-platform engineering roles.
 
 ---
 
-## Key Architecture Decisions
+## Key Features
+- Persistent top navigation bar (NavBar) with ESPN-style underline cursor
+- Featured screen with autoplay background video
+- Home, Live, Sports, and Developer Info screens
+- Detail modal with safe focus isolation and video playback
+- Deterministic navigation using action contracts instead of focus guessing
+- Robust BACK-key handling across all screens
+- Zero focus traps or accidental app exits
 
-- Persistent NavBar always present
-- Screens manage their own focus
-- MainScene coordinates state, not focus
-- BACK handled at screen level
-- HOME key never intercepted
+---
+
+## Architecture
+- **MainScene**
+  - Owns screen visibility, modal state, and playback state
+  - Acts as the single navigation authority
+- **NavBar**
+  - Stateless UI component
+  - Emits navigation intent via action contracts
+- **Screens**
+  - Own their internal navigation
+  - Yield focus cleanly back to NavBar
+- **DetailScreen**
+  - Modal-only focus ownership
+  - Clean lifecycle enter / exit behavior
+
+---
+
+## Navigation Model
+Instead of relying on implicit focus behavior, the app uses an explicit **navigation contract**:
+
+- `selectedId` → *what* tab is targeted
+- `navAction` → *why* navigation occurred (`select` vs `enter`)
+- `navPulse` → guarantees delivery of repeated actions
+
+This ensures navigation works even when:
+- The same tab is re-selected
+- Focus visually moves but intent does not
+- Roku swallows repeated field assignments
+
+---
+
+## Development Timeline
+
+### November
+- Initial SceneGraph layout
+- Basic NavBar and screen switching
+- Early focus bugs identified
+
+### Early December
+- Added Featured autoplay video
+- Introduced Detail modal
+- Encountered non-deterministic focus issues
+
+### Mid December
+- Deep debugging with Roku debugger logs
+- Discovered focus ≠ intent problem
+- Multiple failed approaches using observers and `.hasMethod()`
+
+### Late December
+- Introduced **navPulse**
+- Refactored navigation to action-based contract
+- Stabilized BACK behavior across all screens
+- Finalized architecture and documentation
 
 ---
 
 ## Lessons Learned
 
-### 1. `observeField("selectedId")` Is Not Reliable
+### 1. Focus Does NOT Equal Intent on Roku
+**Problem:**  
+Changing focus visually does not mean the system understands user intent.
 
-Observers only fire on value change. Re-selecting the same tab does nothing.
-
-**Fix:** Introduced `navPulse` to signal intent.
-
----
-
-### 2. Focus ≠ Intent
-
-A screen may already be focused, but the user still intends to re-enter it.
-
-**Fix:** Separate intent (`navPulse`) from focus state.
+**Solution:**  
+Explicitly model intent using action fields (`select`, `enter`) instead of relying on focus state.
 
 ---
 
-### 3. `hasMethod()` Is Not a Focus Strategy
+### 2. Re-selecting the Same Value Does Not Fire Observers
+**Problem:**  
+Setting `selectedId = "HOME"` repeatedly does nothing if the value hasn’t changed.
 
-Runtime reflection caused inconsistent behavior.
-
-**Fix:** All screens safely expose `enterMenu()`.
-
----
-
-### 4. BACK Must Be Screen-Local
-
-Unconsumed BACK exits the app.
-
-**Fix:** Every screen consumes BACK and returns focus to NavBar.
+**Solution:**  
+Introduce a monotonically increasing `navPulse` field to guarantee delivery of repeated actions.
 
 ---
 
-## Final Solution: `navPulse`
+### 3. `.hasMethod()` Is Fragile in Production
+**Problem:**  
+Runtime checks caused inconsistent behavior and crashes.
 
-```brightscript
-m.top.navPulse = m.top.navPulse + 1
-```
-
-Observed in MainScene to reliably handle:
-- OK
-- DOWN
-- Re-entry of same tab
+**Solution:**  
+Adopt a **screen contract**: every NavBar-driven screen implements `enterMenu()` consistently.
 
 ---
 
-## Result
+### 4. BACK Must Be Handled Per Screen
+**Problem:**  
+Letting BACK bubble caused accidental app exits.
 
-✔ Stable navigation  
-✔ Deterministic focus  
-✔ No accidental exits  
-✔ Production-grade UX  
+**Solution:**  
+Each screen intercepts BACK and explicitly returns focus to NavBar.  
+Only HOME button exits the app.
+
+---
+
+### 5. NavBar Must Be Stateless
+**Problem:**  
+Letting NavBar manage app state caused race conditions.
+
+**Solution:**  
+NavBar only emits intent. MainScene decides everything.
+
+---
+
+### 6. Determinism Beats Cleverness
+**Problem:**  
+Frame-based tricks and focus hacks were unreliable.
+
+**Solution:**  
+Use deterministic signals (`navPulse`) over timing assumptions.
+
+---
+
+## Why This Matters
+This project demonstrates:
+- Platform-level debugging skill
+- Understanding of TV UX constraints
+- Production-safe SceneGraph architecture
+- Persistence through non-obvious system behavior
 
 ---
 
 ## Author
-
-Erick Esquilin
+**Erick Esquilin**  
+Software Engineer – Streaming UI / Systems  
+Portfolio-ready Roku SceneGraph application
