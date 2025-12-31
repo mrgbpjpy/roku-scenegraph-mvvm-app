@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="InfoDialog" extends="StandardDialog" initialFocus="buttonArea">
+
+    <interface>
+        <field id="dialogTitle" type="string" />
+        <field id="dialogText" type="string" />
+    </interface>
+
+    <children>
+
+        <!-- TITLE -->
+        <StdDlgTitleArea
+            primaryTitle=" Upcoming Games " />
+
+        <!-- CONTENT -->
+        <StdDlgContentArea>
+            <StdDlgTextItem
+                id="dialogTextItem"
+                scrollable="true"
+                 text=" "/>
+        </StdDlgContentArea>
+
+        <!-- BUTTONS -->
+        <StdDlgButtonArea id="buttonArea">
+            <StdDlgButton text="OK" />
+        </StdDlgButtonArea>
+
+    </children>
+
+    <script type="text/brightscript" uri="pkg:/components/InfoDialog.brs" />
+</component>

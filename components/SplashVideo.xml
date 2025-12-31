@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="SplashVideo" extends="Group" initialFocus="videoPlayer">
+
+    <!-- Public interface -->
+    <interface>
+        <!-- Notifies MainScene that splash video completed -->
+        <field id="finished" type="boolean" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/SplashVideo.brs" />
+
+    <children>
+
+        <!-- Background rectangle (sits behind video) -->
+        <Rectangle
+            id="bg"
+            width="1280"
+            height="720"
+            color="0x000000FF"
+            translation="[0,0]"
+            visible="true" />
+
+        <!-- Fullscreen splash video -->
+        <Video
+            id="videoPlayer"
+            width="1280"
+            height="720"
+            translation="[0,0]"
+            loop="false"
+            control="stop"
+            visible="false"   
+            enableUI="false" />
+
+    </children>
+
+</component>

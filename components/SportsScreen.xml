@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="SportsScreen" extends="Group" focusable="true">
+
+    <script type="text/brightscript" uri="pkg:/components/SportsScreen.brs" />
+
+    <interface>
+        <function name="enterMenu" />
+    </interface>
+
+
+    <children>
+
+        <!-- Background -->
+        <Rectangle
+            id="bg"
+            width="1280"
+            height="720"
+            color="0x000000FF" />
+
+        <!-- Header -->
+        <Label
+            id="header"
+            text="Sports Categories"
+            translation="[60, 80]"
+            font="font:LargeSystemFont"
+            color="0xFFFFFFFF" />
+
+        <!-- Horizontal Sports Menu -->
+        <LayoutGroup
+            id="sportsRow"
+            layoutDirection="horiz"
+            itemSpacings="[40]"
+            translation="[60, 130]"
+            focusable="false">
+
+            <Label id="sportNFL"  text="NFL"     font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="sportNBA"  text="NBA"     font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="sportMLB"  text="MLB"     font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="sportNHL"  text="NHL"     font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="sportUFC"  text="UFC"     font="font:MediumSystemFont" color="0xAAAAAAFF" />
+            <Label id="sportSOC"  text="Soccer"  font="font:MediumSystemFont" color="0xAAAAAAFF" />
+
+        </LayoutGroup>
+
+        <!-- Underline Cursor (drawn AFTER labels for correct layering) -->
+        <Rectangle
+            id="cursor"
+            width="100"
+            height="6"
+            color="0xE6C200FF"
+            opacity="0.0"
+            translation="[60, 170]" />
+
+    </children>
+
+</component>
