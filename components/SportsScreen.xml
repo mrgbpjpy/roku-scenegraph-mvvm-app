@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="SportsScreen" extends="Group" focusable="true">
+
+    <interface>
+        <!-- Emit dialog requests to MainScene -->
+        <field id="requestDialog" type="string" />
+    </interface>
+
+    <children>
+
+        <!-- =========================
+             BACKGROUND
+        ========================== -->
+        <Rectangle
+            id="bg"
+            width="1280"
+            height="590"
+            color="0x101820FF" />
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+        <Label
+            id="title"
+            text="SPORTS"
+            translation="[80, 40]"
+            font="font:LargeSystemFont"
+            color="0xFFFFFFFF" />
+
+        <!-- =========================
+             LEFT MENU (LEAGUES)
+        ========================== -->
+        <LayoutGroup
+            id="sportsMenu"
+            layoutDirection="vert"
+            itemSpacings="[18]"
+            translation="[80, 120]"
+            focusable="false">
+
+            <Label id="optNBA"
+                   text="NBA"
+                   font="font:MediumSystemFont"
+                   color="0xFFFFFFFF" />
+
+            <Label id="optNFL"
+                   text="NFL"
+                   font="font:MediumSystemFont"
+                   color="0xAAAAAAFF" />
+
+            <Label id="optMLB"
+                   text="MLB"
+                   font="font:MediumSystemFont"
+                   color="0xAAAAAAFF" />
+
+            <Label id="optNHL"
+                   text="NHL"
+                   font="font:MediumSystemFont"
+                   color="0xAAAAAAFF" />
+
+            <Label id="optNCAA"
+                   text="NCAA"
+                   font="font:MediumSystemFont"
+                   color="0xAAAAAAFF" />
+
+        </LayoutGroup>
+
+        <!-- =========================
+             UNDERLINE CURSOR
+        ========================== -->
+        <Rectangle
+            id="cursor"
+            width="120"
+            height="4"
+            translation="[80, 160]"
+            color="0xE6C200FF"
+            opacity="0.0" />
+
+        <!-- =========================
+             RIGHT PREVIEW PANEL
+        ========================== -->
+        <Group
+            id="previewPanel"
+            translation="[420, 120]">
+
+            <Label
+                id="previewTitle"
+                text="NBA"
+                font="font:LargeSystemFont"
+                color="0xFFFFFFFF" />
+
+            <Label
+                id="previewDesc"
+                translation="[0, 60]"
+                width="700"
+                wrap="true"
+                font="font:SmallSystemFont"
+                color="0xCCCCCCFF"
+                text="Scores, highlights, standings, and game replays from around the league." />
+
+        </Group>
+
+    </children>
+
+    <script type="text/brightscript" uri="pkg:/components/SportsScreen.brs" />
+
+</component>

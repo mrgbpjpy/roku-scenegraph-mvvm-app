@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="MainScene" extends="Scene">
+
+    <interface>
+        <function name="ShowDetail" />
+        <function name="ShowDetailFadeOut" />
+        <function name="HideDetail" />
+        <function name="HideDetail_afterFade" />
+        <function name="PlayVideo" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    <script type="text/brightscript" uri="pkg:/components/UILogic/ScreenStackLogic.brs" />
+
+    <children>
+
+        <!-- ===================================================== -->
+        <!-- TOP NAVIGATION BAR                                   -->
+        <!-- ===================================================== -->
+        <Group
+            id="navBarLayer"
+            width="1280"
+            height="130"
+            translation="[0,0]"
+            visible="false"
+            focusable="true">
+
+            <NavBar
+                id="navBar"
+                translation="[0,60]" />
+        </Group>
+
+        <!-- ===================================================== -->
+        <!-- MAIN SCREEN HOLDER (MUST BE FOCUSABLE + SIZED)        -->
+        <!-- ===================================================== -->
+        <Group
+            id="screenLayer"
+            width="1280"
+            height="590"
+            translation="[0,130]"
+            visible="true"
+            focusable="true">
+
+            <FeaturedScreen
+                id="featuredScreen"
+                visible="true"
+                focusable="true" />
+
+            <HomeScreen
+                id="homeScreen"
+                visible="false"
+                focusable="true" />
+
+            <LiveScreen
+                id="liveScreen"
+                visible="false"
+                focusable="true" />
+
+            <SportsScreen
+                id="sportsScreen"
+                visible="false"
+                focusable="true" />
+
+            
+
+            <DeveloperInfoScreen
+                id="developerInfoScreen"
+                visible="false" />
+
+        </Group>
+
+        <!-- ===================================================== -->
+        <!-- DETAIL MODAL OVERLAY (FULLSCREEN, ABOVE SCREENS)      -->
+        <!-- ===================================================== -->
+        <Group
+            id="detailLayer"
+            width="1280"
+            height="720"
+            translation="[0,0]"
+            visible="false"
+            focusable="true">
+
+            <DetailScreen
+                id="detailScreen"
+                visible="true"
+                focusable="true" />
+        </Group>
+
+        <!-- ===================================================== -->
+        <!-- DEBUG LABEL                                          -->
+        <!-- ===================================================== -->
+        <Label
+            id="debugLabel"
+            text="ESPN Prototype"
+            translation="[40,20]"
+            font="font:MediumSystemFont"
+            color="0xFFFFFFFF" />
+
+        <!-- ===================================================== -->
+        <!-- SPLASH LAYER (ABOVE EVERYTHING EXCEPT VIDEO)          -->
+        <!-- ===================================================== -->
+        <Group
+            id="introLayer"
+            width="1280"
+            height="720"
+            translation="[0,0]"
+            visible="true"
+            opacity="1.0"
+            focusable="false">
+
+            <SplashVideo id="splash" />
+
+            <Animation
+                id="introFadeAnim"
+                duration="800"
+                repeat="false">
+                <FloatFieldInterpolator
+                    fieldToInterp="introLayer.opacity"
+                    key="[0.0, 1.0]"
+                    keyValue="[1.0, 0.0]" />
+            </Animation>
+        </Group>
+
+        <!-- ===================================================== -->
+        <!-- VIDEO PLAYER (MUST BE LAST / TOPMOST)                 -->
+        <!-- ===================================================== -->
+        <Video
+            id="mainVideo"
+            width="1280"
+            height="720"
+            translation="[0,0]"
+            visible="false"
+            enableUI="false"
+            audioGuideText="Video player" />
+
+    </children>
+
+</component>

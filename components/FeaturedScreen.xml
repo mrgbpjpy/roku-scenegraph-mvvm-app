@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="FeaturedScreen" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/FeaturedScreen.brs" />
+
+    <interface>
+        <function name="enterMenu" />
+    </interface>
+
+
+    <children>
+
+        <!-- REQUIRED focus anchor -->
+        <Rectangle
+            id="focusAnchor"
+            width="1"
+            height="1"
+            opacity="0"
+            focusable="true" />
+
+        <!-- Solid background -->
+        <Rectangle
+            width="1280"
+            height="720"
+            color="0x101010FF" />
+
+        <!-- Dark overlay BELOW video -->
+        <Rectangle
+            width="1280"
+            height="720"
+            color="0x00000080"
+            opacity="0.4" />
+
+        <!-- UI -->
+        <Group translation="[40,180]">
+            <Label
+                text="FEATURED HIGHLIGHT"
+                font="font:LargeBoldSystemFont"
+                color="0xFFFFFFFF" />
+
+            <Label
+                text="Tonight's Must-Watch NFL Moment"
+                translation="[0,50]"
+                font="font:MediumSystemFont"
+                color="0xCCCCCCFF" />
+        </Group>
+
+        <!-- Debug proof -->
+        <Label
+            text="FEATURED SCREEN RENDERING ✅"
+            translation="[400,360]"
+            font="font:LargeSystemFont"
+            color="0xFF0000FF" />
+
+        <!-- 🎬 VIDEO MUST BE LAST -->
+        <Video
+            id="bgVideo"
+            width="1280"
+            height="720"
+            visible="true"
+            enableUI="false"
+            loop="false" />
+
+    </children>
+
+    <focus>
+        <focusGroup>
+            <focusItem id="focusAnchor" />
+        </focusGroup>
+    </focus>
+
+</component>

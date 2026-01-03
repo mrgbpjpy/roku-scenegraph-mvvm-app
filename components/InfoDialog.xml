@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="InfoDialog" extends="StandardDialog">
+
+    <interface>
+        <field id="dialogTitle" type="string" />
+        <field id="dialogText" type="string" />
+    </interface>
+
+    <children>
+        <StdDlgTitleArea
+            id="titleArea"
+            primaryTitle="" />
+
+        <StdDlgContentArea>
+            <StdDlgTextItem
+                id="textItem"
+                scrollable="true"
+                text="" />
+        </StdDlgContentArea>
+
+        <StdDlgButtonArea id="buttonArea">
+            <StdDlgButton text="OK" />
+        </StdDlgButtonArea>
+    </children>
+
+    <script type="text/brightscript" uri="pkg:/components/InfoDialog.brs" />
+</component>
